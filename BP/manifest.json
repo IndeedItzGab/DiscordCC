@@ -1,0 +1,41 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "DiscordCC §r(§a1.0.0§r)",
+    "description": "§aA script that allows you to have a relay chat between a discord channel and your bedrock dedicated server through a server-less hosting.",
+    "uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
+    "min_engine_version": [1, 21, 80],
+    "version": [1, 0, 0]
+  },
+  "modules": [
+    {
+      "description": "Behavior Pack Module",
+      "type": "data",
+      "uuid": "85914dbd-877c-4248-8b5b-087f6db00f7a",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "scripts",
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/index.js",
+      "uuid": "f79dfd74-4e07-40d0-93ce-f01946b916bc",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.0.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-net",
+      "version": "1.0.0-beta"
+    }
+  ],
+  "metadata": {
+    "author": ["IndeedItzGab"],
+    "license": "GPL-3.0-or-later",
+    "product_type": "addon"
+  }
+}
