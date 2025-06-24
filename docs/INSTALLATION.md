@@ -2,7 +2,8 @@
 Note that this script only support **Bedrock Dedicated Server**.
 
 ### Method 1: Native Installation
-1.) Install the script from [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/discordcc)\n
+1.) Install the script from [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/discordcc)
+
 2.) Upload the script in the `development_behavior_packs` folder at your server files. Make sure it is decompresses into a folder.\n
 3.) Add the "@minecraft/server-net" in the `config/default/permission.json`. The file content must look like this:\n
 ```json
