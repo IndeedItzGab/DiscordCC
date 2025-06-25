@@ -1,19 +1,11 @@
 {
   "format_version": 2,
   "header": {
-<<<<<<< HEAD
     "name": "DiscordCC §r(§a1.0.2§r)",
     "description": "§aA script that allows you to have a relay chat between a discord channel and your bedrock dedicated server through a server-less hosting.",
     "uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
     "min_engine_version": [1, 21, 80],
     "version": [1, 0, 2]
-=======
-    "name": "DiscordCC §r(§a1.0.1§r)",
-    "description": "§aA script that allows you to have a relay chat between a discord channel and your bedrock dedicated server through a server-less hosting.",
-    "uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
-    "min_engine_version": [1, 21, 80],
-    "version": [1, 0, 1]
->>>>>>> 2f06cca6ee80f641e1f4def8feb2a33f993d7fbd
   },
   "modules": [
     {
