@@ -4,16 +4,14 @@ import { config } from "../../config.js"
 
 system.beforeEvents.shutdown.subscribe(event => {
   if(!config.token || !config.channel) return;
-  system.run(() => {
-    const res2 = new HttpRequest(config.webhook)
-    res2.method = HttpRequestMethod.Post
-    res2.headers = [
-      new HttpHeader("Content-Type", `application/json`)
-    ]
-    res2.body = JSON.stringify({
-      content: "🛑**Server has stopped**"
-    })
-    
-    http.request(res2)
+  const res2 = new HttpRequest(config.webhook)
+  res2.method = HttpRequestMethod.Post
+  res2.headers = [
+    new HttpHeader("Content-Type", `application/json`)
+  ]
+  res2.body = JSON.stringify({
+    content: "🛑**Server has stopped**"
   })
+  
+  http.request(res2)
 })
