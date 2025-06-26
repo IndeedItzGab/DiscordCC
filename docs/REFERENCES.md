@@ -5,10 +5,10 @@ You may ask how DiscordCC API work, it use script evemt to
 
 ## Table Of Content
 - [Table Of Content](#table-of-content)
-  - [Message](#message)
-  - [Embed Object](#embed-object)
-    - [footer](#footer)
-  - [sendChat](#sendchat)
+- [Message](#message)
+- [Embed Object](#embed-object)
+  - [footer](#footer)
+- [sendChat](#sendchat)
 
 ## Message
 Represents a sent in a channel within Discord
