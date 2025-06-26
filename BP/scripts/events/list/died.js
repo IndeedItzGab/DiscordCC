@@ -1,7 +1,6 @@
 import { world } from "@minecraft/server"
 import { http, HttpRequest, HttpHeader, HttpRequestMethod} from "@minecraft/server-net"
 import { config } from "../../config.js"
-import { captureOwnerStack } from "react";
 
 world.afterEvents.entityDie.subscribe(event => {
   if(!config.token || !config.channel) return;
@@ -160,8 +159,6 @@ world.afterEvents.entityDie.subscribe(event => {
         color: 0x000000
       }  
     ],
-    username: "Newb SMP",
-    avatar_url: "https://cdn.discordapp.com/attachments/1136508489989111901/1383287918004801626/ezgif.com-video-to-gif-1.gif?ex=684e3ec3&is=684ced43&hm=bac37521c5461e837dd8e53d56bdf99d107d86e1a505f7015c77d6400d70b67a&"
   })
   
   http.request(res2)

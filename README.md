@@ -5,6 +5,9 @@
 
 This is a Minecraft Bedrock Edition script that allows player to chats with people from a discord server. It doesn't need any host services or a hosted discord bot to use this. This script use the discord bot as server-less host but still allowing to fetch the messages from discord to the server.
 
+> [!NOTE]
+> This script is **ONLY AVAILABLE** for dedicated servers. Therefore, you can't use this in client-side or realms.
+
 ## Requirements
 - BETA APIs enabled
 - @minecraft/server-net
@@ -20,9 +23,12 @@ While we currently developing DiscordCC, these are the following available featu
   - Death Messages
   - Join Messages
   - Left Messages
-  - Startup Message
+  - Startup and Shutdown Messages
 ![example_image](docs/images/example.png)
 more features will be added in the near future!
+
+## References
+DiscordCC offers API frameworks that could be use by any other scripts/add-ons. Visit [here](docs/REFERENCES.md) to view more.
 
 ## Contributions
 ### Reporting Bugs
