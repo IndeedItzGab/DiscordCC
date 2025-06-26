@@ -4,11 +4,11 @@ DiscordCC offers api that can be use by other scripts/add-ons depending on their
 You may ask how DiscordCC API work, it use script evemt to
 
 ## Table Of Content
--  [Table Of Content](#table-of-content)
--  [Message](#message)
--  [Embed Object](#embed-object)
-  -  [footer](#footer)
--  [sendChat](#sendchat)
+- [Table Of Content](#table-of-content)
+- [Message](#message)
+- [Embed Object](#embed-object)
+  - [footer](#footer)
+- [sendChat](#sendchat)
 
 ## Message
 Represents a sent in a channel within Discord
