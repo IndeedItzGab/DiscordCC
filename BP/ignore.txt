@@ -1,0 +1,13 @@
+DiscordCC V1.0.4
+- Fixed an issue if the player was killed by a player doesn't show the killer's name.
+- Added support for death messages for mobs with nametags and tamed mobs.
+
+DiscordCC V1.0.5
+- Fixed an issue whenever the server reloads, the previous message from the specified discord channel get sent to the server again.
+
+DiscordCC V1.0.6
+- Added support for discord reply messages will now show on the server.
+
+DiscordCC V1.0.7
+- Added support for console (not everything on the console will be logged).
+- A message from the specified discord channel can now run a command within the server.

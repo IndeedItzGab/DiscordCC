@@ -1,0 +1,8 @@
+name: DiscordCC
+version: V1.0.4
+status: STABLE
+message: |
+  # DiscordCC V1.0.4
+  - An entity that was tamed by a player or a entity with a name tag will now be sent in the server when they died.
+  - When a player killed a certain entity, it will now show their actual name instead of the entity type (Player).
+  - Added the steve profile picture again for webhook message sent from server to discord.
