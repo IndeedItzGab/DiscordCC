@@ -1,6 +1,7 @@
 name: DiscordCC
-version: V1.0.41
+version: V1.0.5
 status: STABLE
 message: |
-  # DiscordCC V1.0.41
-  - Updated to support the latest version of Minecraft: Bedrock Edition.
+  # DiscordCC V1.0.5
+  - Fixed compatibility issues with Minecraft 1.21.111 and above.
+  - Fixed compatibility issue with other packs made by me.
