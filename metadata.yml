@@ -1,6 +1,9 @@
 name: DiscordCC
-version: V1.0.6
+version: V1.0.7
 status: STABLE
 message: |
-  # DiscordCC V1.0.6
-  - The pack will now automatically support manifest updates. Therefore, this pack supports minecraft bedrock (1.21.120) and above without further manual manifest updates.
+  # DiscordCC V1.0.7
+  - Prevent players from pinging `@here` and `@everyone` in their messages.
+  - Use steve's head in players' chats.
+  - Players in-game will now see who were the person in discord is replying to.
+  - Fixed where some discord users' name is `null` in-game.

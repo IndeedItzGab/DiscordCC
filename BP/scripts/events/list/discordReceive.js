@@ -14,7 +14,9 @@ if(config.token && config.channel) {
        
       const res = await http.request(res2)
       if(res.status === 200) {
-        const data = JSON.parse(res.body)
+        const data = await JSON.parse(res.body)
+
+
         const messages = data.filter(d => {
           const t = d.timestamp.replace(/(\.\d{3})\d+/, '$1');
   
@@ -26,8 +28,26 @@ if(config.token && config.channel) {
           return false
         })
         if(messages.length > 0) {
-          messages.forEach(message => {
-            world.sendMessage(`§7[§bDiscord§7] ${message.author.global_name}: ${message.content}`)
+          messages.forEach(async message => {
+
+            // Fetch replied message data if found
+            
+            if(message.message_reference?.message_id) {
+              const replyHeader = new HttpRequest(`https://discord.com/api/v10/channels/${config.channel}/messages/${message.message_reference.message_id}`)
+              replyHeader.method = HttpRequestMethod.Get,
+              replyHeader.headers = [
+                new HttpHeader("Authorization", `Bot ${config.token}`)
+              ]
+
+              const res = await http.request(replyHeader)
+              if(res.status === 200) {
+                const data = await JSON.parse(res.body)
+
+                world.sendMessage(`§7[§bDiscord§7] §3${message.author.global_name || message.author.username} §7replying to §3${data.author.global_name || data.author.username}§7:§r ${message.content}`)
+              }
+            } else {
+              world.sendMessage(`§7[§bDiscord§7] §3${message.author.global_name || message.author.username}§7:§r ${message.content}`)
+            }
           })
         }
       } else {

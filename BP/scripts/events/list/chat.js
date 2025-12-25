@@ -4,7 +4,7 @@ import { config } from "../../config.js"
 
 world.afterEvents.chatSend.subscribe((event) => {
   if(!config.token || !config.channel) return;
-  send({username: event.sender.name, message: {content: event.message}, avatarUrl: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F375487687673255002%2F&psig=AOvVaw2B-al6kKU_QRqwHemEjULK&ust=1752473301217000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKDnlvmVuY4DFQAAAAAdAAAAABAE"})
+  send({username: event.sender.name, message: {content: event.message}, avatarUrl: "https://cdn.discordapp.com/attachments/1388361920696029265/1453686409977135104/Minecraft_Steve_Face_-_Printable_for_Download.jpg?ex=694e5a78&is=694d08f8&hm=fba0c40ce297ab04bb69c81d2ddeaa50823d31643a488410d5fbbb3def250f26"})
 })
 
 export async function send(data = JSON.parse(data)) {
@@ -15,7 +15,7 @@ export async function send(data = JSON.parse(data)) {
   ]
 
   res2.body = JSON.stringify({
-    content: data.message?.content || null,
+    content: data.message?.content.replaceAll("@here", "`@here`").replaceAll("@everyone", "`@everyone`") || null,
     embeds: data.message?.embed ? [
       {
         title: data.message?.embed?.title || null,
