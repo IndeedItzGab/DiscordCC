@@ -2,6 +2,7 @@
 Note that this script only support **Bedrock Dedicated Server**.
 
 ### Method 1: Native Installation
+This installation is applicable for most minecraft bedrock hosting services where they allow users to do almost everything with the rented server. The instructions below is not detailed as it seems to be. Therefore, if you have any question please join our [Discord Server](https://discord.gg/gWyk8MZKtM) to ask for support.
 1.) Install the script from [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/discordcc)
 
 2.) Upload the script in the `development_behavior_packs` folder at your server files. Make sure it is decompresses into a folder.
@@ -21,15 +22,18 @@ Note that this script only support **Bedrock Dedicated Server**.
 ```
 4.) Make sure that the **BETA APIs** is enabled in your world's experimental setting.
 
-5.) You must create a discord bot application from [Discord Development Portal](https://discord.com/developers/applications). After creating one, the discord bot must have a **Message Content Intent** in the "Bot" section of your application.
+5.) You must create a discord bot application from [Discord Development Portal](https://discord.com/developers/applications). After creating one, the discord bot must have a **Message Content Intent** in the "Bot" menu of your application.
 ![example](./images/messageContentIntent.png)
 
-6.) Then, you must get the token and put it inside the `config.js` at the script folder files.
+6.) On the "Bot" menu, find the "**token**" section and reset it. It should show the discord bot's token that should be included in the `config.js` at the script folder files.
 
-8.) Now, you must copy the channel id of on where you want people to have a chat with, then paste the channel id on the configuration file of the script.
+7.) Select a discord channel that you want to connect with minecraft server. Then, copy the channel id and paste it on the configuration file of the script.
 
-9.) Make sure that your discord bot is in the server with a proper permission to read the messages on the given channel.
+8.) Your discord bot should have a proper role permission in order for it to read the messages sent from the specified channel.
 
-10.) After that, create a webhook at the same discord server channel and name it whatever you want. Then, copy the url and paste it at the configuration file of the script.
+9.) After that, go to the channel setting that you copied id and create a webhook from that channel. Then, copy the webhook url and paste it at the configuration file of the script.
 
-11.) You can now play with DiscordCC, if you found a problem. Please contact me.
+10.) You can now play with DiscordCC, if you found a problem. Please contact me.
+
+### Aternos
+Soon
