@@ -11,3 +11,10 @@ DiscordCC V1.0.6
 DiscordCC V1.0.7
 - Added support for console (not everything on the console will be logged).
 - A message from the specified discord channel can now run a command within the server.
+
+- The system now use the new network feature called "websocket" to listen discord event(s), such as messages.
+- Fixed several bugs in API handler, detecting messages from discords, and more.
+- Refactored some codes avoiding code repetition.
+- New configuration options were added.
+
+- Display 

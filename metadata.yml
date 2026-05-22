@@ -1,9 +1,15 @@
 name: DiscordCC
-version: V1.0.7
+version: V1.0.8
 status: STABLE
 message: |
-  # DiscordCC V1.0.7
-  - Prevent players from pinging `@here` and `@everyone` in their messages.
-  - Use steve's head in players' chats.
-  - Players in-game will now see who were the person in discord is replying to.
-  - Fixed where some discord users' name is `null` in-game.
+  # DiscordCC V1.0.8
+  - This version only supports Minecraft: Bedrock Edition 1.26.20 or later.
+  - The system now use the new network feature called "websocket" to listen discord event(s), such as messages, and slash commands interactions.
+  - Fixed several bugs in API handler, not detecting messages from discords, and more.
+  - Refactored some codes avoiding code repetition.
+  - New configuration options were added.
+  - Added new discord slash commands
+    - `/kick <player> [reason]` - Kick a specific player through discord slash command.
+    - `/announce <content>` - Send an announement in both discord channel and minecraft server.
+    - `/list` - List all online players in the minecraft server
+  - Added Discord bot presence and activity (no purpose for now)
