@@ -3,7 +3,7 @@
 [![TWITTER](https://img.shields.io/twitter/follow/IndeedItzGab)](https://x.com/IndeedItzGab?t=UL3bhR8CksHJSWn89duhuA&s=09)
 [![DISCORD](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/23vG3Np6AH)
 
-This is a Minecraft Bedrock Edition script that allows player to chats with people from a discord server. It doesn't need any host services or a hosted discord bot to use this. This script use the discord bot as server-less host but still allowing to fetch the messages from discord to the server.
+This is a Minecraft Bedrock Edition script that allow players to chat with people from a discord channel. It's a rich with features, providing simple and better interaction with the users.
 
 > [!NOTE]
 > This script is **ONLY AVAILABLE** for dedicated servers. Therefore, you can't use this in client-side or realms.
