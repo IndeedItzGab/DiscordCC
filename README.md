@@ -24,6 +24,10 @@ While we currently developing DiscordCC, these are the following available featu
   - Join Messages
   - Left Messages
   - Startup and Shutdown Messages
+- Slash commands from discord channel to interact with the minecraft servers
+  - `/kick <player> [reason]`
+  - `/announce <content>`
+  - `/list`
 ![example_image](docs/images/example.png)
 more features will be added in the near future!
 
