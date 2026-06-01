@@ -3,6 +3,11 @@ import { config } from "../../config.js"
 import { announce } from "./list/announce.js"
 import { kick } from "./list/kick.js";
 import { list } from "./list/list.js";
+import { command } from "./list/command.js";
+import { shutdown } from "./list/shutdown.js"
+import { allowlist } from "./list/allowlist.js";
+import { op } from "./list/op.js";
+import { deop } from "./list/deop.js";
 import { applicationId } from "../Client.js";
 
 let processes = new Map()
@@ -11,6 +16,12 @@ export function registerSlashCommands() {
   announce()
   kick()
   list()
+  command()
+
+  shutdown()
+  allowlist()
+  op()
+  deop()
 }
 
 export async function CommandRegistration(data, process) {

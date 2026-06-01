@@ -18,16 +18,9 @@ First, you must download the DiscordCC pack that you can find in [CurseForge](ht
 
 ## Feature
 While we currently developing DiscordCC, these are the following available features:
-- Chat across the discord channel and the minecraft server.
-  - Chat Messages
-  - Death Messages
-  - Join Messages
-  - Left Messages
-  - Startup and Shutdown Messages
-- Slash commands from discord channel to interact with the minecraft servers
-  - `/kick <player> [reason]`
-  - `/announce <content>`
-  - `/list`
+- Relay Chat between a discord channel and minecraft server.
+- Event notifications, such as join, left, death, server start, and server stop.
+- Useful discord slash commands allowing better and efficient interaction. You may check the [commands list here](docs/COMMANDS.md).
 ![example_image](docs/images/example.png)
 more features will be added in the near future!
 

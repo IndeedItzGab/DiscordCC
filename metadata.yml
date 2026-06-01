@@ -1,6 +1,14 @@
 name: DiscordCC
-version: V1.0.81
+version: V1.0.9
 status: STABLE
 message: |
-  # DiscordCC V1.0.81
-  - Fixed shutdown message not sending to the discord channel
+  # DiscordCC V1.0.9
+  - Fixed unstable connection handshake, causing multiple gateway running and looped connections reported by @orweewee
+    - Known Issue (NOT FIXED): Session [resuming](https://docs.discord.com/developers/events/gateway-events#resume) is not currently working properly because we cannot close the gateway with specified [close codes](https://docs.discord.com/developers/topics/opcodes-and-status-codes#gateway-gateway-opcodes). However, I would try to make an alternative approach to make this work. Therefore, **some events could get skipped, such as messages from discord was not sent in the server, or slash command did not respond for a certain moment.**
+  - Fixed shutdown message not sending to the discord channel.
+  - Added new discord slash commands:
+    - `/command <command>` - Execute a minecraft bedrock command through discord.
+    - `/kick <player> [reason]` - Kick a certain player through discord.
+    - `/op <player>` - Give the op permissions to a certain player.
+    - `/deop <player>` - Remove the op permissions from a certain player.
+    - `/shutdown` - Stop/shutdown the server through discord.

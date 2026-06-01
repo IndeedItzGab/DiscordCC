@@ -2,27 +2,22 @@ import { config } from "../../../config";
 import { system } from "@minecraft/server"
 import { CommandRegistration } from "../CommandRegistration";
 import { world } from "@minecraft/server"
-import { kickPlayer } from "@minecraft/server-admin"
+import { deopPlayer } from "@minecraft/server-admin"
 
-export function kick() {
+export function deop() {
   CommandRegistration({
-    name: "kick",
-    description: "Kick a specific player in the minecraft server",
+    name: "deop",
+    description: "Remove the op permissions from the specific player.",
     options: [
       {
         name: "gamertag",
-        description: "The gamertag of the player to kick",
+        description: "A player you want to remove op permission.",
         type: 3,
         required: true
-      },
-      {
-        name: "reason",
-        description: "Provide a reason",
-        type: 3
       }
     ]
-  }, async function(interaction) {
-    
+  }, function(interaction) {
+
     // Filter
     if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) return interaction.reply({
       embeds: [
@@ -34,21 +29,19 @@ export function kick() {
       flags: 64
     })
 
-    const gamertag = interaction.options.getString("gamertag");
-    const reason = interaction.options.getString("reason") || "No reason given.";
-
+    const gamertag = interaction.options.getString("gamertag")
     const player = world.getPlayers().find(p => p.name === gamertag)
+
     try {
       if(player) {
-        kickPlayer(player, reason)
+        deopPlayer(player)
         interaction.reply({
           embeds: [
             {
               author: {
-                name: `${gamertag} was kicked | ${reason}`,
-                icon_url: config.playerAvatar
+                name: `De-opped: ${player.name} `
               },
-              color: 0x00FF00
+              color: 0x00FFFF
             }
           ]
         })
@@ -61,8 +54,7 @@ export function kick() {
               },
               color: 0xFF0000
             }
-          ],
-          flags: 64
+          ]
         })
       }
     } catch (err) {
@@ -71,12 +63,11 @@ export function kick() {
         embeds: [
           {
             author: {
-              name: `Something went wrong. Please try again.`
+              name: `Something went wrong. Please try again. `
             },
             color: 0xFF0000
           }
-        ],
-        flags: 64
+        ]
       })
     }
   })

@@ -1,7 +1,9 @@
 # API References
 DiscordCC offers api that can be use by other scripts/add-ons depending on their needs or wants. Therefore, this documentation show all possible API frameworks that DiscordCC offers.
 
-You may ask how DiscordCC API work, it use script evemt to
+You may ask how DiscordCC API framework work, it uses script event to receive calls with specific id and usage. Although it currently doesn't have that much exposed API(s) to use, I will consider implementing much in the near future.
+
+This document is not certainly finished and not properly formatted. I will consider improving this document in the near future.
 
 ## Table Of Content
 - [Table Of Content](#table-of-content)
@@ -12,10 +14,10 @@ You may ask how DiscordCC API work, it use script evemt to
 
 ## Message
 Represents a sent in a channel within Discord
-|FIELD     |TYPE                  |Description                                                |
-|----------|----------------------|-----------------------------------------------------------|
-|content   |string                |contents of the message                                    |
-|embed     |[embed](#embed-object) object|embedded content                                           |
+|FIELD     |TYPE                         |Description                                                |
+|----------|-----------------------------|-----------------------------------------------------------|
+|content   |string                       |contents of the message                                    |
+|embeds    |[embed](#embed-object) object|embedded content                                           |
 
 ## Embed Object
 **Embed Structure**
@@ -46,6 +48,6 @@ This api allows a script to send a message to the specified discord channel.
 
 **Example Usage:**
 ```javascript
-import { system } from @minecraft/server
+import { system } from "@minecraft/server"
 system.sendScriptEvent("discordcc:sendChat", JSON.stringify({message: {content: message}, username: player.name}))
 ```

@@ -5,7 +5,12 @@ export class Interaction {
     this.id = d.id;
     this.token = d.token;
     this.member = d.member
+    
     this.options = {
+      sub: d.data?.options?.[0] ?? null,
+      getSubString(name) {
+        return d.data.options[0].options.find(d => d.name === name)?.value
+      },
       getString(name) {
         return d.data.options.find(d => d.name === name)?.value
       }

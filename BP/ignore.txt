@@ -18,3 +18,12 @@ DiscordCC V1.0.7
 - New configuration options were added.
 
 - Display 
+
+- Added new slash command that allow you to execute a command in the server. It cannot give you the result of the command, but it will run in the server.
+  - `/command <command>`
+  - `/deop <player>`
+  - `/op <player>`
+  - `/allowlist <add/remove/enable/disable> [gamertag]`
+  - `/shutdown`
+- Fixed issue with discord gateway connection reported by @orwee
+- Fixed shutdown notification not sending in the discord channel
