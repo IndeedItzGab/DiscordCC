@@ -39,8 +39,10 @@ jobs:
 
       - name: Compression Session
         run: |
-          zip -r temp.zip src/*
-          mv temp.zip "$FILE_NAME"
+          cd src
+          zip -r temp.zip .
+          cd ..
+          mv "src/temp.zip" "$FILE_NAME"
 
       - name: Upload to Github Tag
         run: |

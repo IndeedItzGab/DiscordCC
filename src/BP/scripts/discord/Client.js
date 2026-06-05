@@ -75,7 +75,7 @@ const GatewayDispatchEvents = {
 }
 
 system.run(() => {
-  if(!config.token || !config,channel) return console.info(`No token or channel id provided.`)
+  if(!config.token || !config.channel) return console.info(`No token or channel id provided.`)
   internalConnect()
 })
 
