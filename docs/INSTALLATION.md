@@ -20,12 +20,15 @@ This installation is applicable for most minecraft bedrock hosting services wher
 2.) Extract it to folder and upload the project folder to your server's `server/files/development_behavior_packs` directory.
 
 3.) Edit or create file named `world_resource_pack.json` inside your active world's folder and add the DiscordCC resource pack UUID and version.
+
 ![wrp](./images/installation/wrp.png)
 
 4.) Edit or create file named `world_behavior_pack.json` inside your active world's folder and add the DiscordCC behavior pack UUID and version.
+
 ![wbp](./images/installation/wbp.png)
 
 5.) Open your server's permissions config file located at `server/files/config/default/permissions.json` and ensure `"@minecraft/server-net"` is allowed.
+
 ![config](./images/installation/modules.png)
 
 ### Step 3: Discord Bot Setup
@@ -38,15 +41,19 @@ This installation is applicable for most minecraft bedrock hosting services wher
   - **Manage Webhooks** - Required for handling webhook to the specified channel for sending messages from players.
   - **Send Messages** - Required for the bot to send a message to the specified channel.
   - **Embed Links** - Required for the bot to be able to send embeded messages.
+
 ![guildInstall](./images/installation/guildInstall.png)
 
 3.) Use the provided installation link on that page to invite the bot to your Discord server.
+
 ![inviteBot](./images/installation/inviteBot.png)
 
 4.) Go to the **Bot** menu and enable both **Presence Intent** and **Message Content Intent**.
+
 ![intents](./images/installation/intents.png)
 
 5.) Reset and copy the bot's token, then paste it into the configuration file of the DiscordCC pack.
+
 ![token](./images/installation/token.png)
 
 6.) Copy the ID of the channel you want discord users and minecraft players to communicate.
