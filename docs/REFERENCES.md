@@ -3,51 +3,24 @@ DiscordCC offers api that can be use by other scripts/add-ons depending on their
 
 You may ask how DiscordCC API framework work, it uses script event to receive calls with specific id and usage. Although it currently doesn't have that much exposed API(s) to use, I will consider implementing much in the near future.
 
-This document is not certainly finished and not properly formatted. I will consider improving this document in the near future.
+> [!NOTE]
+> This document is not certainly finished and not properly formatted. I will consider improving this document in the near future.
 
 ## Table Of Content
 - [Table Of Content](#table-of-content)
-- [Message](#message)
-- [Embed Object](#embed-object)
-  - [footer](#footer)
-- [sendChat](#sendchat)
+- [Bot method](#bot-method)
+- [Webhook method](#webhook-method)
 
-## Message
-Represents a sent in a channel within Discord
-|FIELD     |TYPE                         |Description                                                |
-|----------|-----------------------------|-----------------------------------------------------------|
-|content   |string                       |contents of the message                                    |
-|embeds    |[embed](#embed-object) object|embedded content                                           |
-
-## Embed Object
-**Embed Structure**
-|FIELD      |TYPE                       |Description                                                         |
-|-----------|---------------------------|--------------------------------------------------------------------|
-|title      |string                     |contents of the message                                             |
-|description|string                     |embedded content                                                    |
-|footer     |[footer](#footer) object   |footer information                                                  |
-|color      |integer                    |color code of the embed                                             |
-|thumbnail  |string                     |source url of thumbnail (only supports http(s) and attachments)     |
-|timestamp  |boolean                    |timestamp of embed content                                          |
-
-### footer
-**Embed Footer Structure**
-|FIELD      |TYPE                       |Description                                                         |
-|-----------|---------------------------|--------------------------------------------------------------------|
-|text       |string                     |footer text                                                         |
-|iconUrl    |string                     |url of footer icon (only supports http(s) and attachments)          |
-
-
-## sendChat
-This api allows a script to send a message to the specified discord channel.
-|FIELD     |TYPE       |Description                                                        |
-|----------|-----------|-------------------------------------------------------------------|
-|username  |string     |override the default username of the webhook                       |
-|avatarUrl |string     |source url of image (only supports http(s) and attachments)        |
-|message   |string     |Represents a [message](#message) sent in a channel within Discord  |
-
+## Bot Method
 **Example Usage:**
 ```javascript
 import { system } from "@minecraft/server"
-system.sendScriptEvent("discordcc:sendChat", JSON.stringify({message: {content: message}, username: player.name}))
+system.sendScriptEvent("discordcc:botSend", JSON.stringify({content: "Hello, world!"}))
+```
+
+## Webhook Method
+**Example Usage:**
+```javascript
+import { system } from "@minecraft/server"
+system.sendScriptEvent("discordcc:webhookSend", JSON.stringify({username: "DiscordCC", avatar_url: "https://example.com", content: "Hello, world!"}))
 ```
