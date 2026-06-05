@@ -5,6 +5,8 @@
 
 This is a Minecraft Bedrock Edition script that allow players to chat with people from a discord channel. It's a rich with features, providing simple and better interaction with the users.
 
+![Thumbnail](./docs/images/thumbnail.png)
+
 > [!NOTE]
 > This script is **ONLY AVAILABLE** for dedicated servers. Therefore, you can't use this in client-side or realms.
 
