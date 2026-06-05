@@ -1,0 +1,49 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "DiscordCC §r(§a1.1.0§r)",
+    "description": "§aA script that allows you to have a relay chat between a discord channel and your bedrock dedicated server ",
+    "uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
+    "min_engine_version": [ 1, 26, 20 ],
+    "version": [ 1, 1, 0 ]
+  },
+  "modules": [
+    {
+      "description": "Behavior Pack Module",
+      "type": "data",
+      "uuid": "85914dbd-877c-4248-8b5b-087f6db00f7a",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "scripts",
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/index.js",
+      "uuid": "74ac5963-2d35-4ca7-958f-22c1a20c35b8",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "6305a689-a8f3-45be-9c4d-88a6b80fc080",
+      "version": [ 1, 0, 0 ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-net",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-admin",
+      "version": "beta"
+    }
+  ],
+  "metadata": {
+    "author": ["IndeedItzGab"],
+    "url": "https://github.com/IndeedItzGab/DiscordCC",
+    "license": "All Rights Reserved unless otherwise explicitly stated."
+  }
+}

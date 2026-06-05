@@ -1,0 +1,28 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "DiscordCC",
+		"description": "Generally used by DiscordCC script for friendly visual and textures in particulat matters.",
+		"uuid": "6305a689-a8f3-45be-9c4d-88a6b80fc080",
+		"min_engine_version": [ 1, 26, 20 ],
+		"version": [ 1, 0, 0 ]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "02c544ab-1bed-46ce-b1c8-2ece850d00d9",
+			"version": [ 1, 0, 0 ]
+		}
+	],
+	"dependencies": [
+		{
+			"uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
+			"version": [ 1, 1, 0 ]
+		}
+	],
+	"metadata": {
+		"authors": ["IndeedItzGab"],
+		"url": "https://github.com/IndeedItzGab/DiscordCC",
+		"license": "All Rights Reserved unless otherwise explicitly stated."
+	}
+}

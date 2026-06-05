@@ -1,14 +1,15 @@
 name: DiscordCC
-version: V1.0.9
+version: V1.1.0
 status: STABLE
 message: |
-  # DiscordCC V1.0.9
-  - Fixed unstable connection handshake, causing multiple gateway running and looped connections reported by @orweewee
-    - Known Issue (NOT FIXED): Session [resuming](https://docs.discord.com/developers/events/gateway-events#resume) is not currently working properly because we cannot close the gateway with specified [close codes](https://docs.discord.com/developers/topics/opcodes-and-status-codes#gateway-gateway-opcodes). However, I would try to make an alternative approach to make this work. Therefore, **some events could get skipped, such as messages from discord was not sent in the server, or slash command did not respond for a certain moment.**
-  - Fixed shutdown message not sending to the discord channel.
-  - Added new discord slash commands:
-    - `/command <command>` - Execute a minecraft bedrock command through discord.
-    - `/kick <player> [reason]` - Kick a certain player through discord.
-    - `/op <player>` - Give the op permissions to a certain player.
-    - `/deop <player>` - Remove the op permissions from a certain player.
-    - `/shutdown` - Stop/shutdown the server through discord.
+  # DiscordCC V1.1.0
+  - Added new custom minecraft emojis for DiscordCC to use. Therefore, the pack will now use resource pack to improve user interaction in future updates.
+  - Revamped announcement and discord message format
+  - Added debug option in config file allowing users to debug their own.
+  - Added in-game custom slash commands
+    - `/discord invite` - Provide the discord invite link of the discord server.
+  - Users are no longer required to manually put the webhook url to the configuration file, the discord bot will do it for you.
+  - Revamped way of messaging to discord for all events except players chat. While player chat still use webhook for unqiue message identication, events like death, joined, left, and server status will send message through the discord bot itself instead of webhook.
+  - Revamped API handler, please check [references](https://github.com/IndeedItzGab/DiscordCC/blob/main/docs/REFERENCES.md#api-references) for more information.
+  - Improvement with handling gateway connections. We will no longer try to resume the previous session since it is currently impossible due to script engine limitation.
+  - New project icon

@@ -13,7 +13,7 @@ This is a Minecraft Bedrock Edition script that allow players to chat with peopl
 - @minecraft/server-net
 
 ## Instalation
-First, you must download the DiscordCC pack that you can find in [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/discordcc). After that, you can now upload it to your minecraft server's in `development_behavior_packs` folder. Your server must have BETA APIs enabled and "@minecraft/server-net" is included in the server's configuration. More detailed information [here](docs/INSTALLATION.md)
+First, you must download the DiscordCC pack that you can find in [CurseForge](https://www.curseforge.com/minecraft-bedrock/scripts/discordcc/files/latest). After that, you can now upload it to your minecraft server's in `development_behavior_packs` folder. Your server must have BETA APIs enabled and "@minecraft/server-net" is included in the server's configuration. More detailed information [here](docs/INSTALLATION.md)
 ![BETA APIs](docs/images/beta_apis.jpg)
 
 ## Feature
@@ -21,7 +21,7 @@ While we currently developing DiscordCC, these are the following available featu
 - Relay Chat between a discord channel and minecraft server.
 - Event notifications, such as join, left, death, server start, and server stop.
 - Useful discord slash commands allowing better and efficient interaction. You may check the [commands list here](docs/COMMANDS.md).
-![example_image](docs/images/example.png)
+
 more features will be added in the near future!
 
 ## References
@@ -35,8 +35,8 @@ We appreciate code contribution for this project. Especially if you have fixed a
 Please ensure your code follows our coding standard and includes tests where possible.
 
 ## Copyright
-© 2025 IndeedItzGab. All rights reserved.
-- You may not distribute this project without explicit permission and proper credit.
+© 2025-2026 IndeedItzGab. All rights reserved unless otherwise explicitly stated.
+- You can distribute this project with the **official download link only**, and proper credit.
 - You may modify this project for **personal use only**.
 
 ## Support Me
