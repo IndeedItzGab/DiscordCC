@@ -8,7 +8,7 @@ These slash commands are only available for moderators
 |NAME      |PARAMETERS                               |DESCRIPTION                                        |
 |----------|-----------------------------------------|---------------------------------------------------|
 |announce  |\<context\>                              |Send an announcement to the minecraft server       |
-|allowlist |\<add|remove|enable|disable\> [gamertag] |Manage the server whitelist                        |
+|allowlist |\<add\|remove\|enable\|disable\> [gamertag] |Manage the server whitelist                        |
 |command   |\<command\>                              |Run a command in the minecraft server.             |
 |kick      |\<player\> [reason]                      |Kick a specific player in the minecraft server     |
 |op        |\<player\>                               |Give a specific player a op permissions.           |
