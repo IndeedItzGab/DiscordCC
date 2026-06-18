@@ -15,8 +15,10 @@ export const config = {
   moderatorRoles: [""], // A role ID that is used to identify moderators allowing them to use slash commands for moderators.
 
   // Extra Configuration - You can tweak these setting from your own preference.
+  serverName: "", // Provde a name for your minecraft bedrock server
+  serverAddress: "", // Provide a server address to your minecraft bedrock server for users to view
+  serverPort: "", // Provide a server port to your minecraft bedrock server for users to view
   discordInviteLink: "",
-  playerAvatar: "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg",
   discordMessageFormat: "§7[ §9Discord§7] $user§7:§r $message",
   discordReplyToMessageFormat: "§7[ §9Discord§7] $user §7replying to §3$replyUser§7:§r $message",
 

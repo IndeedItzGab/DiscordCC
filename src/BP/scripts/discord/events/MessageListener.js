@@ -8,7 +8,7 @@ export async function MessageListener(data) {
   
   // Assigning color name and unicode role
   let prefixName;
-  if(guilds.get(data.guild_id) === data.author.id) {
+  if(guilds.get(data.guild_id).owner_id === data.author.id) {
     prefixName = `§e `
   } else if(data.member?.roles.some(r => config.moderatorRoles.includes(r))) {
     prefixName = `§d `

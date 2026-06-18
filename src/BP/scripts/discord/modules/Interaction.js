@@ -2,6 +2,7 @@ import { http, HttpRequest, HttpHeader, HttpRequestMethod } from "@minecraft/ser
 
 export class Interaction {
   constructor(d) {
+    this.guild = d.guild
     this.id = d.id;
     this.token = d.token;
     this.member = d.member

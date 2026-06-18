@@ -1,10 +1,10 @@
 import { config } from "../../../config";
 import { system } from "@minecraft/server"
-import { CommandRegistration } from "../CommandRegistration";
+import { SlashCommand } from "../CommandRegistration";
 import { world } from "@minecraft/server"
 
 export function command() {
-  CommandRegistration({
+  SlashCommand.register({
     name: "command",
     description: "Run a command in the minecraft server.",
     options: [

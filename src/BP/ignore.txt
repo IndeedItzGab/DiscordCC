@@ -1,10 +1,28 @@
-- Added new custom minecraft emojis for DiscordCC to use. Therefore, the pack will now use resource pack to improve user interaction in future updates.
-- Revamped announcement and discord message format
-- Added debug option in config file allowing users to debug their own.
-- Added in-game custom slash commands
-  - `/discord invite` - Provide the discord invite link of the discord server.
-- Users are no longer required to manually put the webhook url to the configuration file, the discord bot will do it for you.
-- Revamped way of messaging to discord for all events except players chat. While player chat still use webhook for unqiue message identication, events like death, joined, left, and server status will send message through the discord bot itself instead of webhook.
-- Revamped API handler, please check [references](https://github.com/IndeedItzGab/DiscordCC/blob/main/docs/REFERENCES.md#api-references) for more information.
-- Improvement with handling gateway connections. We will no longer try to resume the previous session since it is currently impossible due to script engine limitation.
-- New project icon
+- Added new alex avatar to be used as female identity using player arm size.
+- Renamed a few discord slash commands:
+  - **/list** >> **/player list**
+  - **/shutdown** >> **/server shutdown** 
+- Added new discord slash commands:
+  - **/player info <gamertag>**
+  - **/server info**
+  - **/host**
+  - **/player location <gamertag>**
+- Handling gateway connection is updated to support the newest update in 26.30
+  - Fixed double connection happening when `HELLO` code is not received
+
+Next next update
+- Gamertag Registration
+  - Manual accept/deny
+  - Auto accept
+  - ingame /confirm - with 3 days expiration
+  - **/register <gamertag>**
+  - **/who <user>**
+  - add to **/player info** discord username
+
+next next update
+- **/player enderchest <gamertag>**
+- **/player inventory <gamertag>**
+- Store data player's in dynamic property for viewing even player is off
+- **/player info** since online, offline ago
+  - death counts
+  - Ores break and obtained

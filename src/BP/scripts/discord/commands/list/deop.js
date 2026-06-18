@@ -1,11 +1,11 @@
 import { config } from "../../../config";
 import { system } from "@minecraft/server"
-import { CommandRegistration } from "../CommandRegistration";
+import { SlashCommand } from "../CommandRegistration";
 import { world } from "@minecraft/server"
 import { deopPlayer } from "@minecraft/server-admin"
 
 export function deop() {
-  CommandRegistration({
+  SlashCommand.register({
     name: "deop",
     description: "Remove the op permissions from the specific player.",
     options: [

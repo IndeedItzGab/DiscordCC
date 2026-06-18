@@ -1,6 +1,6 @@
 import { config } from "../../../config";
 import { system } from "@minecraft/server"
-import { CommandRegistration } from "../CommandRegistration";
+import { SlashCommand } from "../CommandRegistration";
 import { world } from "@minecraft/server"
 import { dedicatedServer } from "@minecraft/server-admin"
 
@@ -9,7 +9,7 @@ import { dedicatedServer } from "@minecraft/server-admin"
 // enable
 // disable
 export function allowlist() {
-  CommandRegistration({
+  SlashCommand.register({
     name: "allowlist",
     description: "Manage the server whitelist",
     options: [

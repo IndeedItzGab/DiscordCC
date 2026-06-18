@@ -3,9 +3,8 @@ import { config } from "../config";
 import { world, system } from "@minecraft/server"
 import { MessageListener } from "./events/MessageListener.js"
 import { PresenceUpdater } from "./live/PresenceUpdater.js";
-import { execute } from "./commands/CommandRegistration.js";
 import { Interaction } from "./modules/Interaction.js";
-import { registerSlashCommands } from "./commands/CommandRegistration.js";
+import { SlashCommand } from "./commands/CommandRegistration.js";
 
 // TAKE NOTE: that some function within this file are from discord.js WebSocket handler so the connection is stable as much as possible.
 // This is update should be "resume" friendly without expecting it to fail like it used to be before.
@@ -16,6 +15,7 @@ const sleep = (tick) => new Promise(resolve => system.runTimeout(resolve, tick))
 // Necessary Variables
 export let applicationId, guildId;
 export const guilds = new Map()
+
 let client = {
   status: "OFFLINE",
   isOk: false,
@@ -104,7 +104,7 @@ async function internalConnect() {
   client.helloHandlerTimeout = system.runTimeout(() => {
     if(!client.isOk) {
       console.info("We did not received HELLO code")
-      destroy(false)
+      gateway.close()
     }
   }, 5*20)
 
@@ -144,11 +144,13 @@ async function onMessage(packet) {
           const body = JSON.parse(res.body)
           guildId = body.guild_id
           applicationId = packet.d.application.id
-
-          !client.slashRegistered ? registerSlashCommands() : null
-          client.slashRegistered = true
-
           PresenceUpdater(client.gateway)
+
+          // Register slash commands
+          if(!client.slashRegistered) {
+            SlashCommand.init()
+            client.slashRegistered = true
+          }
           break;
         }
         case GatewayDispatchEvents.Resumed: {
@@ -163,12 +165,11 @@ async function onMessage(packet) {
           break;
         }
         case "INTERACTION_CREATE": {
-          execute(packet.d.data.name, new Interaction(packet.d))
+          SlashCommand.execute(packet)
           break;
         }
         case "GUILD_CREATE": {
-          guilds.set(packet.d.id, packet.d.owner_id)
-          
+          guilds.set(packet.d.id, packet.d)
           break;
         }
       }
@@ -207,6 +208,7 @@ async function onMessage(packet) {
       } else {
         identify(client.gateway)
       }
+
 
       await sleep(firstWait)
       await heartbeat()
@@ -248,18 +250,13 @@ function destroy(isResume) {
     client.lastSessionID = null
     client.resumeUrl = null
     if(client.gateway?.isOpen) {
-      client.gateway?.close()
+      client.gateway?.close() // Possible loophole (will be tested)
     }
     client.gateway = null;
   }
 
   client.isOk = false
 
-  try {
-    
-  } catch (err) {
-    console.error(err)
-  }
   system.runTimeout(() => {
     internalConnect()
   }, isResume ? 1 : 5*20)
@@ -274,7 +271,9 @@ function identify(gateway) {
         (1 << 0) | // GUILDS
         (1 << 8) | // PRESENCES 
         (1 << 9) | // GUILD_MESSAGES
-        (1 << 15), // MESSAGE_CONTENT
+        (1 << 15) | // MESSAGE_CONTENT
+        (1 << 7),  // GUILD_VOICE_STATE
+
       properties: {
         os: "null",
         browser: "minecraft",

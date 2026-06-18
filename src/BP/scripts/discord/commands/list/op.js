@@ -1,11 +1,11 @@
 import { config } from "../../../config";
 import { system } from "@minecraft/server"
-import { CommandRegistration } from "../CommandRegistration";
+import { SlashCommand } from "../CommandRegistration";
 import { world } from "@minecraft/server"
 import { opPlayer } from "@minecraft/server-admin"
 
 export function op() {
-  CommandRegistration({
+  SlashCommand.register({
     name: "op",
     description: "Give a specific player a op permissions.",
     options: [

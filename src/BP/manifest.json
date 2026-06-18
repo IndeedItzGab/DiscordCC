@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "DiscordCC §r(§a1.1.0§r)",
+    "name": "DiscordCC §r(§a1.1.1§r)",
     "description": "§aA script that allows you to have a relay chat between a discord channel and your bedrock dedicated server ",
     "uuid": "fc45b5a8-b628-49ae-b40d-e0cd8e30d67e",
-    "min_engine_version": [ 1, 26, 20 ],
-    "version": [ 1, 1, 0 ]
+    "min_engine_version": [ 1, 26, 30 ],
+    "version": [ 1, 1, 1 ]
   },
   "modules": [
     {
@@ -38,6 +38,10 @@
     },
     {
       "module_name": "@minecraft/server-admin",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-gametest",
       "version": "beta"
     }
   ],

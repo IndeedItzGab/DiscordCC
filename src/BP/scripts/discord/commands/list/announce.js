@@ -1,10 +1,10 @@
 import { config } from "../../../config";
 import { system } from "@minecraft/server"
-import { CommandRegistration } from "../CommandRegistration";
+import { SlashCommand } from "../CommandRegistration";
 import { world } from "@minecraft/server"
 
 export function announce() {
-  CommandRegistration({
+  SlashCommand.register({
     name: "announce",
     description: "Send an announcement to the minecraft server",
     options: [

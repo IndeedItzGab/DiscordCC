@@ -1,49 +1,73 @@
 import { HttpRequest, HttpRequestMethod, HttpHeader, http } from "@minecraft/server-net";
 import { config } from "../../config.js"
+import { applicationId, guildId } from "../Client.js";
+import { Interaction } from "../modules/Interaction.js";
+
 import { announce } from "./list/announce.js"
 import { kick } from "./list/kick.js";
-import { list } from "./list/list.js";
 import { command } from "./list/command.js";
-import { shutdown } from "./list/shutdown.js"
 import { allowlist } from "./list/allowlist.js";
 import { op } from "./list/op.js";
 import { deop } from "./list/deop.js";
-import { applicationId, guildId } from "../Client.js";
+import { host } from "./list/host.js";
+import { player } from "./list/player.js";
+import { server } from "./list/server.js";
 
 let processes = new Map()
+export class SlashCommand {
+  static async init() {
+    announce()
+    kick()
+    command()
+    allowlist()
+    op()
+    deop()
+    player()
+    host()
+    server()
 
-export function registerSlashCommands() {
-  announce()
-  kick()
-  list()
-  command()
+    // Delete old slash commands "shutdown" & "list"
+    const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`)
+    req.method = HttpRequestMethod.Get;
+    req.headers = [
+      new HttpHeader("Authorization", `Bot ${config.token}`),
+    ];
 
-  shutdown()
-  allowlist()
-  op()
-  deop()
-}
-
-export async function CommandRegistration(data, process) {
-  const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`)
-  req.method = HttpRequestMethod.Post;
-  req.headers = [
-    new HttpHeader("Authorization", `Bot ${config.token}`),
-    new HttpHeader("Content-Type", "application/json")
-  ];
-
-  req.body = JSON.stringify(data);
-  await http.request(req);
-  processes.set(data.name, process)
-}
-
-export async function execute(name, interaction) {
-  const handler = processes.get(name);
-
-  if (!handler) {
-    console.warn(`No handler found for command: ${name}`);
-    return;
+    const res = await http.request(req);
+    for(const command of JSON.parse(res.body)) {
+      if(["shutdown", "list"].includes(command.name)) {
+        const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands/${command.id}`)
+        req.method = HttpRequestMethod.Delete;
+        req.headers = [
+          new HttpHeader("Authorization", `Bot ${config.token}`),
+        ];
+        await http.request(req);
+      }
+    }
   }
 
-  return await handler(interaction);
+  static async execute(packet) {
+    const handler = processes.get(packet.d.data.name);
+
+    if (!handler) {
+      debug(2, `No handler found for command: ${name}`)
+      return;
+    }
+
+    await handler(new Interaction(packet.d));
+  }
+
+  static async register(data, callback) {
+    const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`)
+    req.method = HttpRequestMethod.Post;
+    req.headers = [
+      new HttpHeader("Authorization", `Bot ${config.token}`),
+      new HttpHeader("Content-Type", "application/json")
+    ];
+
+    req.body = JSON.stringify(data);
+    processes.set(data.name, callback)
+    return await http.request(req);
+  }
 }
+
