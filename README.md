@@ -6,6 +6,7 @@
 [![GITHUB_DOWNLOADS](https://img.shields.io/github/downloads/IndeedItzGab/DiscordCC/total?logo=github&label=Github%20Downloads)](https://github.com/IndeedItzGab/DiscordCC/releases)
 [![GITHUB_RELEASE](https://img.shields.io/github/v/release/indeeditzgab/discordcc?logo=github&label=Github%20Release)](https://github.com/IndeedItzGab/DiscordCC/releases/latest)
 ![LATEST_MINECRAFT_BEDROCK_SUPPORTED_VERSION](https://img.shields.io/curseforge/game-versions/1287853?label=Latest%20Supported%20Version)
+
 This is a Minecraft Bedrock Edition script that allow players to chat with people from a discord channel. It's a rich with features, providing simple and better interaction with the users.
 
 ![Thumbnail](./docs/images/thumbnail.png)
