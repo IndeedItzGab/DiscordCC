@@ -1,8 +1,8 @@
 import { config } from "../../../config";
-import { system } from "@minecraft/server"
+import { system, world } from "@minecraft/server"
 import { SlashCommand } from "../CommandRegistration";
-import { world } from "@minecraft/server"
 import { dedicatedServer } from "@minecraft/server-admin"
+import { debug } from "../../Client";
 
 // will be refactored //
 
@@ -49,7 +49,7 @@ export function player() {
     const gamertag = interaction.options.getSubString("gamertag")
     const player = world.getPlayers().find(player => player.name === gamertag)
 
-    if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r)) && ["location"].includes(sub)) {
+    if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r)) && ["location"].includes(sub)) {
       interaction.reply({
         embeds: [
           {
@@ -119,12 +119,15 @@ export function player() {
         const language = player.clientSystemInfo.locale
         const graphicMode = player.graphicsMode
         const ping = player.getPing()
+        let  user = JSON.parse(world.getDynamicProperty("accounts") || "[]").find(d => d.gamertag === gamertag)?.id
+        user = user ? `<@${user}>` : "Not linked to a discord account"
         let data = {}
 
-        if(interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) {
+        if(interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) {
           // Moderator respond
           data = {
             content: `**Nametag:** ${nametag}
+**DIscord Account:** ${user}
 **Language:** ${language}
 **Ping:** ${ping}
 **Current Action:** ${action}
@@ -147,6 +150,7 @@ export function player() {
           // Default respond
           data = {
             content: `**Nametag: ${nametag}
+**Discord Account:** ${user}
 **Language:** ${language}
 **Ping:** ${ping}
 **Platform:** ${platformType}
@@ -173,6 +177,7 @@ export function player() {
       }
     }
   })
+  debug(1, `"player" slash command loaded`)
 }
 
 function playerPermission(player) {

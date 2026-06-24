@@ -2,7 +2,7 @@ import { config } from "../../../config";
 import { SlashCommand } from "../CommandRegistration";
 import { dedicatedServer } from "@minecraft/server-admin"
 import { system, world } from "@minecraft/server"
-import { guilds } from "../../Client";
+import { guilds, debug } from "../../Client";
 
 // will be refactored //
 
@@ -66,7 +66,7 @@ export function server() {
       }
       case "shutdown": {
         // Filter
-        if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) return interaction.reply({
+        if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
           embeds: [
             {
               description: `**You are not allowed to use this command.**`,
@@ -92,6 +92,7 @@ export function server() {
       }
     }
   })
+  debug(1, `"server" slash command loaded`)
 }
 
 

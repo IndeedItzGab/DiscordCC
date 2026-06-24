@@ -6,16 +6,16 @@ import { getPlayerSkin } from "@minecraft/server-gametest"
 
 
 world.afterEvents.chatSend.subscribe(async (event) => {
-  if(!config.token || !config.channel || !config.gameChat) return;
+  if(!config.main.botToken || !config.main.relayChannel || !config.alerts.gameChat) return;
   const skin = getPlayerSkin(event.sender)
   
   let avatar;
-  if(skin.armSize === "Wide") {
-    // Steve Avatar
-    avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
-  } else {
+  if(skin.armSize === "Slim") {
     // Alex Avatar
     avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/alex.jpg"
+  } else {
+    // Steve Avatar
+    avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
   }
 
   webhookSend({

@@ -53,7 +53,7 @@ export function registerCommand(comInfo, callback) {
 
 
 system.beforeEvents.startup.subscribe((init) => {
-  init.customCommandRegistry.registerEnum(`discordcc:discord`, ["invite"])
+  init.customCommandRegistry.registerEnum(`discordcc:discord`, ["invite", "account"])
 
   for(const command of commands) {
     init.customCommandRegistry.registerCommand(command.commandInformation, command.callback)

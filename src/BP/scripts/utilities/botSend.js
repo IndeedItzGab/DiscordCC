@@ -2,12 +2,12 @@ import { http, HttpHeader, HttpRequest, HttpRequestMethod } from "@minecraft/ser
 import { config } from "../config";
 
 export async function botSend(data) {
-  if(!config.channel || !config.token) return;
-  const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.channel}/messages`)
+  if(!config.main.relayChannel || !config.main.botToken) return;
+  const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.main.relayChannel}/messages`)
   req.method = HttpRequestMethod.Post
   req.headers = [
     new HttpHeader("Content-Type", "application/json"),
-    new HttpHeader("Authorization", `Bot ${config.token}`)
+    new HttpHeader("Authorization", `Bot ${config.main.botToken}`)
   ];
 
 

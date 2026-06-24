@@ -1,7 +1,7 @@
 import { config } from "../../../config";
-import { system } from "@minecraft/server"
+import { system, world } from "@minecraft/server"
 import { SlashCommand } from "../CommandRegistration";
-import { world } from "@minecraft/server"
+import { debug } from "../../Client";
 
 export function announce() {
   SlashCommand.register({
@@ -18,7 +18,7 @@ export function announce() {
   }, function(interaction) {
 
     // Filter
-    if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) return interaction.reply({
+    if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
       embeds: [
         {
           description: `**You are not allowed to use this command.**`,
@@ -42,4 +42,5 @@ export function announce() {
       ]
     })
   })
+  debug(1, `"announce" slash command loaded`)
 }

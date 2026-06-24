@@ -1,8 +1,8 @@
 import { config } from "../../../config";
-import { system } from "@minecraft/server"
+import { system, world} from "@minecraft/server"
 import { SlashCommand } from "../CommandRegistration";
-import { world } from "@minecraft/server"
 import { kickPlayer } from "@minecraft/server-admin"
+import { debug } from "../../Client";
 
 export function kick() {
   SlashCommand.register({
@@ -24,7 +24,7 @@ export function kick() {
   }, async function(interaction) {
     
     // Filter
-    if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) return interaction.reply({
+    if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
       embeds: [
         {
           description: `**You are not allowed to use this command.**`,
@@ -80,4 +80,5 @@ export function kick() {
       })
     }
   })
+  debug(1, `"kick" slash command loaded`)
 }

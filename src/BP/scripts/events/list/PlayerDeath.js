@@ -4,7 +4,7 @@ import { botSend } from "../../utilities/botSend.js";
 import { getPlayerSkin } from "@minecraft/server-gametest"
 
 world.afterEvents.entityDie.subscribe(event => {
-  if(!config.token || !config.channel || !config.deathNotification) return;
+  if(!config.main.botToken || !config.main.relayChannel || !config.alerts.deathNotification) return;
   if(event.deadEntity.typeId === "minecraft:player" || event.deadEntity.getComponent("minecraft:is_tamed") || event.deadEntity.nameTag) {
      const cause = event.damageSource
 
@@ -133,10 +133,10 @@ world.afterEvents.entityDie.subscribe(event => {
     let avatar;
     if(event.deadEntity.typeId === "minecraft:player") {
       const skin = getPlayerSkin(event.deadEntity)
-      if(skin.armSize === "Wide") {
-        avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
-      } else {
+      if(skin.armSize === "Slim") {
         avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/alex.jpg"
+      } else {
+        avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
       }
     }
     

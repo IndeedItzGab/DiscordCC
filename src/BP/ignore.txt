@@ -1,28 +1,26 @@
-- Added new alex avatar to be used as female identity using player arm size.
-- Renamed a few discord slash commands:
-  - **/list** >> **/player list**
-  - **/shutdown** >> **/server shutdown** 
-- Added new discord slash commands:
-  - **/player info <gamertag>**
-  - **/server info**
-  - **/host**
-  - **/player location <gamertag>**
-- Handling gateway connection is updated to support the newest update in 26.30
-  - Fixed double connection happening when `HELLO` code is not received
+- Implemented Account Synchronization
+  - Manual or automatic accepting gamertag registration.
+  - Allow automatically add a specific role to a user once the application was accepted manually or automatically.
+  - Implemented new discord slash commands:
+    - **/register <gamertag> [reason]**
+    - **/gamertag <user>**
+  - Implemented new minecraft slash commands:
+    - **/verify**
+    - **/discord account <gamertag>**
+- Fixed alex png avatar not showing up, and steve avatar will be used as default player's avatar.
+- Updated **/player info** for the connected discord account information.
 
 Next next update
+- Revameped in registering discord slash commands
 - Gamertag Registration
-  - Manual accept/deny
-  - Auto accept
-  - ingame /confirm - with 3 days expiration
-  - **/register <gamertag>**
-  - **/who <user>**
-  - add to **/player info** discord username
+  - Discord Form 
+  - Customizable messages
+- Implemented new discord slash commands:
+  - **/player enderchest <gamertag>**
+  - **/player inventory <gamertag>**
+  - **/player info** since online, offline ago
 
 next next update
-- **/player enderchest <gamertag>**
-- **/player inventory <gamertag>**
 - Store data player's in dynamic property for viewing even player is off
-- **/player info** since online, offline ago
-  - death counts
-  - Ores break and obtained
+- death counts
+- Ores break and obtained

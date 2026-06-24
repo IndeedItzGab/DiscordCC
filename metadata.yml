@@ -1,18 +1,17 @@
 name: DiscordCC
-version: V1.1.1
+version: V1.1.2
 status: STABLE
 message: |
-  # DiscordCC V1.1.1
-  - This version would only work properly in Minecraft Bedrock Dedicated Server 26.30 or above
-  - Handling gateway connection is updated to support the newest update in 26.30
-    - Fixed double connection happening when `HELLO` code is not received
-  - Added new alex avatar to be used as female identity using player arm size.
-  - Renamed a few discord slash commands:
-    - **/list** >> **/player list**
-    - **/shutdown** >> **/server shutdown** 
-  - Added new discord slash commands:
-    - **/player info <gamertag>**
-    - **/server info**
-    - **/host**
-    - **/player location <gamertag>**
+  # DiscordCC V1.1.2
+  - Implemented Account Synchronization
+    - Manual or automatic accepting gamertag registration.
+    - Allow automatically add a specific role to a user once the application was accepted manually or automatically.
+    - Implemented new discord slash commands:
+      - **/register <gamertag> [reason]**
+      - **/gamertag <user>**
+    - Implemented new minecraft slash commands:
+      - **/verify**
+      - **/discord account <gamertag>**
+  - Fixed alex avatar not showing up, and steve avatar will be used as default player's avatar.
+  - Updated **/player info** for the connected discord account information.
 

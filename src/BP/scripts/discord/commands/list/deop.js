@@ -1,8 +1,8 @@
 import { config } from "../../../config";
-import { system } from "@minecraft/server"
+import { system, world } from "@minecraft/server"
 import { SlashCommand } from "../CommandRegistration";
-import { world } from "@minecraft/server"
 import { deopPlayer } from "@minecraft/server-admin"
+import { debug } from "../../Client";
 
 export function deop() {
   SlashCommand.register({
@@ -19,7 +19,7 @@ export function deop() {
   }, function(interaction) {
 
     // Filter
-    if(!interaction.member?.roles.some(r => config.moderatorRoles.includes(r))) return interaction.reply({
+    if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
       embeds: [
         {
           description: `**You are not allowed to use this command.**`,
@@ -71,4 +71,5 @@ export function deop() {
       })
     }
   })
+  debug(1, `"deop" slash command loaded`)
 }

@@ -1,6 +1,6 @@
 import { HttpRequest, HttpRequestMethod, HttpHeader, http } from "@minecraft/server-net";
 import { config } from "../../config.js"
-import { applicationId, guildId } from "../Client.js";
+import { applicationId, guildId, debug } from "../Client.js";
 import { Interaction } from "../modules/Interaction.js";
 
 import { announce } from "./list/announce.js"
@@ -12,6 +12,10 @@ import { deop } from "./list/deop.js";
 import { host } from "./list/host.js";
 import { player } from "./list/player.js";
 import { server } from "./list/server.js";
+import { register } from "./list/register.js";
+import { gamertag } from "./list/gamertag.js";
+
+//import { form } from "./list/form.js";
 
 let processes = new Map()
 export class SlashCommand {
@@ -25,12 +29,15 @@ export class SlashCommand {
     player()
     host()
     server()
+    register()
+    gamertag()
+    // form() DO NOT UNCOMMENT THIS IS NOT YET READY
 
     // Delete old slash commands "shutdown" & "list"
     const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`)
     req.method = HttpRequestMethod.Get;
     req.headers = [
-      new HttpHeader("Authorization", `Bot ${config.token}`),
+      new HttpHeader("Authorization", `Bot ${config.main.botToken}`),
     ];
 
     const res = await http.request(req);
@@ -39,7 +46,7 @@ export class SlashCommand {
         const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands/${command.id}`)
         req.method = HttpRequestMethod.Delete;
         req.headers = [
-          new HttpHeader("Authorization", `Bot ${config.token}`),
+          new HttpHeader("Authorization", `Bot ${config.main.botToken}`),
         ];
         await http.request(req);
       }
@@ -61,7 +68,7 @@ export class SlashCommand {
     const req = new HttpRequest(`https://discord.com/api/v10/applications/${applicationId}/guilds/${guildId}/commands`)
     req.method = HttpRequestMethod.Post;
     req.headers = [
-      new HttpHeader("Authorization", `Bot ${config.token}`),
+      new HttpHeader("Authorization", `Bot ${config.main.botToken}`),
       new HttpHeader("Content-Type", "application/json")
     ];
 

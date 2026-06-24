@@ -1,5 +1,6 @@
 import { config } from "../../../config";
 import { SlashCommand } from "../CommandRegistration";
+import { debug } from "../../Client";
 
 export function host() {
   SlashCommand.register({
@@ -33,4 +34,5 @@ export function host() {
       ]
     })
   })
+  debug(1, `"host" slash command loaded`)
 }

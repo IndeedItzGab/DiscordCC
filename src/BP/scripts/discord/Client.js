@@ -5,6 +5,7 @@ import { MessageListener } from "./events/MessageListener.js"
 import { PresenceUpdater } from "./live/PresenceUpdater.js";
 import { Interaction } from "./modules/Interaction.js";
 import { SlashCommand } from "./commands/CommandRegistration.js";
+import { ButtonListener } from "./events/ButtonListener.js";
 
 // TAKE NOTE: that some function within this file are from discord.js WebSocket handler so the connection is stable as much as possible.
 // This is update should be "resume" friendly without expecting it to fail like it used to be before.
@@ -75,13 +76,13 @@ const GatewayDispatchEvents = {
 }
 
 system.run(() => {
-  if(!config.token || !config.channel) return console.info(`No token or channel id provided.`)
+  if(!config.main.botToken || !config.main.relayChannel) return console.info(`No token or channel id provided.`)
   internalConnect()
 })
 
 
 async function internalConnect() {
-  console.info("Internal Connect")
+  debug(1, "Internal Connect")
   if(client.gateway && !client.doResume) return; // Avoid multiple sockets connection
   let gateway;
   const url = `${client.resumeUrl ?? "wss://gateway.discord.gg"}/?v=10&encoding=json`
@@ -90,11 +91,11 @@ async function internalConnect() {
     gateway = await websocket.connect(url)
     client.gateway = gateway
   } catch (err) {
-    console.error(err)
+    debug(3, err)
     return destroy(false)
   }
 
-  console.info(`Connected to ${url}`)
+  debug(1, `Connected to ${url}`)
   webhookHandler()
   gateway.afterEvents.message.subscribe(async (event) => {
     onMessage(JSON.parse(event.message))
@@ -103,13 +104,13 @@ async function internalConnect() {
   // No-Hello Handler timeout
   client.helloHandlerTimeout = system.runTimeout(() => {
     if(!client.isOk) {
-      console.info("We did not received HELLO code")
+      debug(2, "We did not received HELLO code")
       gateway.close()
     }
   }, 5*20)
 
   gateway.afterEvents.close.subscribe(() => {
-    console.error("The session destroyed unexpectedly.")
+    debug(3, "The session destroyed unexpectedly")
     destroy(false)
   })
 }
@@ -133,11 +134,11 @@ async function onMessage(packet) {
 
           // Some necessary stuff 
           // Slash commands
-          const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.channel}`)
+          const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.main.relayChannel}`)
           req.method = HttpRequestMethod.Get
           req.headers = [
             new HttpHeader("Content-Type", "application/json"),
-            new HttpHeader("Authorization", `Bot ${config.token}`)
+            new HttpHeader("Authorization", `Bot ${config.main.botToken}`)
           ]
 
           const res = await http.request(req)
@@ -165,7 +166,18 @@ async function onMessage(packet) {
           break;
         }
         case "INTERACTION_CREATE": {
-          SlashCommand.execute(packet)
+          switch(packet.d.type) {
+            case 2: { // Slash Commands
+              SlashCommand.execute(packet)
+              break;
+            }
+            case 3: { // Message Components
+              ButtonListener(new Interaction(packet.d))
+              break;
+            }
+          }
+
+          
           break;
         }
         case "GUILD_CREATE": {
@@ -266,13 +278,13 @@ function identify(gateway) {
   gateway.send(JSON.stringify({
     op: 2,
     d: {
-      token: config.token,
+      token: config.main.botToken,
       intents: 
         (1 << 0) | // GUILDS
         (1 << 8) | // PRESENCES 
         (1 << 9) | // GUILD_MESSAGES
-        (1 << 15) | // MESSAGE_CONTENT
-        (1 << 7),  // GUILD_VOICE_STATE
+        (1 << 12) | // DIRECT_MESSAGES
+        (1 << 15), // MESSAGE_CONTENT
 
       properties: {
         os: "null",
@@ -296,7 +308,7 @@ function resume(gateway) {
   return gateway.send(JSON.stringify({
     op: 6,
     d: {
-      token: config.token,
+      token: config.main.botToken,
       session_id: client.lastSessionID,
       seq: client.lastSequence
     },
@@ -331,12 +343,12 @@ async function webhookHandler() {
   const savedWebhook = JSON.parse(world.getDynamicProperty("discordcc:webhook") || "{}")
   if(!savedWebhook.id) {
     // Create a webhook that the script will use
-    if(!config.channel) return console.error("No channel id was provided")
-    const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.channel}/webhooks`)
+    if(!config.main.relayChannel) return console.error("No channel id was provided")
+    const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.main.relayChannel}/webhooks`)
     req.method = HttpRequestMethod.Post
     req.headers = [
       new HttpHeader("Content-Type", "application/json"),
-      new HttpHeader("Authorization", `Bot ${config.token}`)
+      new HttpHeader("Authorization", `Bot ${config.main.botToken}`)
     ]
     req.body = JSON.stringify({
       name: "Player (DO NOT DELETE)", // Added "(DO NOT DELETE)" incase there are some stubborn people :v
@@ -363,7 +375,7 @@ async function webhookHandler() {
   }
 }
 
-function debug(type = 1, message) {
+export function debug(type = 1, message) {
   if(config.debug) {
     switch(type) {
       case 1: {

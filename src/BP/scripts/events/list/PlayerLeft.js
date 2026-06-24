@@ -4,13 +4,13 @@ import { botSend } from "../../utilities/botSend.js"
 import { skinData } from "./PlayerJoined.js"
 
 world.afterEvents.playerLeave.subscribe(async event => {
-  if(config.leftNotification) {
+  if(config.alerts.leftNotification && config.main.botToken && config.main.relayChannel) {
     const skin = skinData.get(event.playerName)
     let avatar
-    if(skin?.armSize === "Wide") {
-      avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
-    } else {
+    if(skin?.armSize === "Slim") {
       avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/alex.jpg"
+    } else {
+      avatar = "https://raw.githubusercontent.com/IndeedItzGab/DiscordCC/refs/heads/main/docs/images/steve.jpg"
     }
     skinData.delete(event.playerName)
     
