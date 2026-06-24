@@ -12,6 +12,6 @@ message: |
     - Implemented new minecraft slash commands:
       - **/verify**
       - **/discord account <gamertag>**
-  - Fixed alex avatar not showing up, and steve avatar will be used as default player's avatar.
+  - Fixed alex avatar not showing up, and steve avatar will be used as default player avatar.
   - Updated **/player info** for the connected discord account information.
 
