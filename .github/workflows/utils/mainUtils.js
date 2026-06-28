@@ -3,11 +3,13 @@ import fetch from "node-fetch"
 import FormData from "form-data"
 import path from "path";
 
+
 (async () => {
+  const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
   const curseForgeFileID = await curseforgeUpload();
   const content = `
 # ${process.env.PROJECT_NAME} V${process.env.VERSION}
-${process.env.CHANGELOG}
+${changelog}
 
 ### Download Section
 - <:linkvertise:1514208079502118942> [Linkvertise](https://linkvertise.com/1073400/FvQG2MBcODtc?o=sharing) (to support me!)
@@ -42,7 +44,7 @@ async function curseforgeUpload() {
   form.append("file", fs.createReadStream(filePath));
   form.append("metadata",
     JSON.stringify({
-      changelog: process.env.CHANGELOG,
+      changelog: changelog,
       changelogType: "markdown",
       gameVersion: [],
       releaseType: "release",

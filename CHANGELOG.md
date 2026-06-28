@@ -1,0 +1,7 @@
+- Improvement with updating discord slash command by making it flexible in each updates and also to avoid delay in registrating a new commands.
+- Added **messages.js** file to easily customize most messages from this project.
+- Added an application form for ui-based registration, improving user-experience.
+- Added new discord slash command for the application form:
+  - **/form submission**
+- Fixed a bug where a non-moderator user in discord can perform "reject" in registration forms.
+- Fixed a bug where **/register** discord command is not giving the expected result, making users confused in some particular cases.
