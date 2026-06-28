@@ -3,9 +3,9 @@ import fetch from "node-fetch"
 import FormData from "form-data"
 import path from "path";
 
+const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
 
 (async () => {
-  const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
   const curseForgeFileID = await curseforgeUpload();
   const content = `
 # ${process.env.PROJECT_NAME} V${process.env.VERSION}
