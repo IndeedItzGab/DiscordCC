@@ -16,7 +16,7 @@ ${changelog}
 - <:Github:1393587335979073698> [Github](${process.env.GITHUB_RELEASE})
 - <:CurseForge:1377993483800940584> [CurseForge](https://www.curseforge.com/minecraft-bedrock/scripts/${process.env.PROJECT_NAME}/files/${curseForgeFileID})
 
-<@${process.env.ROLE}>
+<@&${process.env.ROLE}>
 -# You may need to wait for CurseForge to upload the file in order for you to download it. Therefore, you can either wait for the file in curseforge or download it directly from Github.`;
 
   const res = await fetch(process.env.DISCORD_WEBHOOK + `?thread_id=${process.env.THREAD_ID}`, {
