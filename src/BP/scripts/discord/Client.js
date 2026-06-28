@@ -6,6 +6,7 @@ import { PresenceUpdater } from "./live/PresenceUpdater.js";
 import { Interaction } from "./modules/Interaction.js";
 import { SlashCommand } from "./commands/CommandRegistration.js";
 import { ButtonListener } from "./events/ButtonListener.js";
+import { FormListener } from "./events/FormListener.js";
 
 // TAKE NOTE: that some function within this file are from discord.js WebSocket handler so the connection is stable as much as possible.
 // This is update should be "resume" friendly without expecting it to fail like it used to be before.
@@ -175,9 +176,11 @@ async function onMessage(packet) {
               ButtonListener(new Interaction(packet.d))
               break;
             }
+            case 5: { // Modal Forms
+              FormListener(new Interaction(packet.d))
+              break;
+            }
           }
-
-          
           break;
         }
         case "GUILD_CREATE": {

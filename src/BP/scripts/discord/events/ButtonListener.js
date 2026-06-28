@@ -2,6 +2,7 @@ import { world } from "@minecraft/server"
 import { http, HttpRequest, HttpHeader, HttpRequestMethod } from "@minecraft/server-net"
 import { config } from "../../config.js"
 import { guildId } from "../Client.js"
+import messages from "../../messages.js"
 
 export async function ButtonListener(interaction) {
   const accounts = JSON.parse(world.getDynamicProperty("accounts") || "[]")
@@ -12,78 +13,17 @@ export async function ButtonListener(interaction) {
   switch(interaction.data.custom_id) {
     case "new_register_gamertag": {
       // New registration
-      accounts.push({
-        id: interaction.member.user.id,
-        username: interaction.member.user.username,
-        gamertag: gamertag,
-        reason: reason,
-        verified: false,
-        date: Date.now()
-      })
-      world.setDynamicProperty("accounts", JSON.stringify(accounts))
-      accounts_cache.delete(interaction.member.user.id)
-      world.setDynamicProperty("accounts_cache", JSON.stringify(Array.from(accounts_cache.entries())))
+      register(interaction, accounts, accounts_cache, gamertag, reason)
       interaction.reply({
         embeds: [
           {
-            author: {
-              name: `${gamertag} gamertag is now connected to your Discord account.`
-            },
-            color: 0x00FF00
+            title: messages.Synchronization.registered.title,
+            description: messages.Synchronization.registered.message.replace("{0}", gamertag),
+            color: messages.Synchronization.registered.color
           }
         ],
         flags: 64
       })
-
-      if(!config.Synchronization.autoAccept) {
-        // Send notification to moderators channel for verification
-        const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.Synchronization.respondChannel}/messages`)
-        req.method = HttpRequestMethod.Post;
-        req.headers = [new HttpHeader("Content-Type", "application/json"), new HttpHeader("Authorization", `Bot ${config.main.botToken}`)];
-        req.body = JSON.stringify({
-          embeds: [
-            {
-              author: {
-                name: `${interaction.member.user.username}`,
-                icon_url: interaction.member.user.avatarUrl
-              },
-              description: `**Gamertag:** ${gamertag}\n**Reason:** ${reason}`,
-              color: 0xFFFF00,
-              footer: {
-                text: `ID: ${interaction.member.user.id}`
-              },
-              timestamp: new Date().toISOString()
-            }
-          ],
-          components: [
-            {
-              type: 1,
-              components: [
-                {
-                  type: 2,
-                  label: "Accept",
-                  custom_id: "accept_applicant",
-                  style: 1
-                },
-                {
-                  type: 2,
-                  label: "Reject",
-                  custom_id: "reject_applicant",
-                  style: 4
-                }
-              ]
-            }
-          ]
-        });
-
-        await http.request(req);
-      } else if(config.Synchronization.roleToAdd) {
-        // Add role
-        const req = new HttpRequest(`https://discord.com/api/v10/guilds/${guildId}/members/${interaction.member.user.id}/roles/${config.Synchronization.roleToAdd}`)
-        req.method = HttpRequestMethod.Put;
-        req.headers = [new HttpHeader("Authorization", `Bot ${config.main.botToken}`)];
-        await http.request(req)
-      }
       break;
     }
     case "change_registered_gamertag": {
@@ -99,24 +39,53 @@ export async function ButtonListener(interaction) {
       interaction.reply({
         embeds: [
           {
-            author: {
-              name: `Your registered gamertag has been changed to ${gamertag}.`
-            },
-            color: 0x00FF00
+            title: messages.Synchronization.changeGamertag.title,
+            description: messages.Synchronization.changeGamertag.message.replace("{0}", gamertag),
+            color: messages.Synchronization.changeGamertag.color
           }
         ],
         flags: 64
       })
       break;
     }
-    case "apply": { // TODO: will be implemented in the future update, ignore for now
+    case "apply": {
+      interaction.showModal({
+        title: "Gamertag Registration",
+        custom_id: "gamertag_registration",
+        components: [
+          {
+            type: 1,
+            components: [
+              {
+                type: 4,
+                label: "Gamertag",
+                custom_id: "gamertag",
+                style: 1,
+                required: true
+              }
+            ]
+          },
+          {
+            type: 1,
+            components: [
+              {
+                type: 4,
+                label: "Reason",
+                custom_id: "reason",
+                style: 2,
+                required: false
+              }
+            ]
+          }
+        ]
+      })
       break;
     }
     case "accept_applicant": {
       // accept the applicant as moderator and send them a DM
       if(!interaction.member.roles.some(r => config.main.moderatorRoles.includes(r))) {
         return interaction.reply({
-          content: "You are not authorized to perform this action.",
+          content: messages.notAuthorized,
           flags: 64
         })
       }
@@ -127,9 +96,9 @@ export async function ButtonListener(interaction) {
         embeds: [
           {
             // Make this embed look formal
-            title: "Gamertag Registration Accepted",
-            description: `Your gamertag registration has been accepted by a moderator. You may now play on the server using your registered gamertag.`,
-            color: 0x00FF00,
+            title: messages.Synchronization.userNotifier.accepted.title,
+            description: messages.Synchronization.userNotifier.accepted.message,
+            color: messages.Synchronization.userNotifier.accepted.color,
             timestamp: new Date().toISOString()
           }
         ]
@@ -179,14 +148,20 @@ export async function ButtonListener(interaction) {
     }
     case "reject_applicant": {
       // reject the applicant as moderator and send them a DM
+      if(!interaction.member.roles.some(r => config.main.moderatorRoles.includes(r))) {
+        return interaction.reply({
+          content: messages.notAuthorized,
+          flags: 64
+        })
+      }
+
       dm(interaction.message.embeds[0].footer.text.split("ID: ")[1], {
         embeds: [
           {
-            title: "Gamertag Registration Rejected",
-            description: `Your gamertag registration has been rejected by a moderator. Please contact a moderator for more information.`,
-            color: 0xFF0000,
+            title: messages.Synchronization.userNotifier.rejected.title,
+            description: messages.Synchronization.userNotifier.rejected.message,
+            color: messages.Synchronization.userNotifier.rejected.color,
             timestamp: new Date().toISOString()
-
           }
         ],
       })
@@ -243,4 +218,72 @@ function dm(userId, message) {
 
     http.request(dmReq);
   })
+}
+
+
+export async function register(interaction, accounts, accounts_cache, gamertag, reason) {
+  accounts.push({
+    id: interaction.member.user.id,
+    username: interaction.member.user.username,
+    gamertag: gamertag,
+    reason: reason,
+    verified: false,
+    date: Date.now()
+  })
+
+  world.setDynamicProperty("accounts", JSON.stringify(accounts))
+  if(accounts_cache) {
+    accounts_cache.delete(interaction.member.user.id)
+    world.setDynamicProperty("accounts_cache", JSON.stringify(Array.from(accounts_cache.entries())))
+  }
+
+  if(!config.Synchronization.autoAccept) {
+    // Send notification to moderators channel for verification
+    const req = new HttpRequest(`https://discord.com/api/v10/channels/${config.Synchronization.respondChannel}/messages`)
+    req.method = HttpRequestMethod.Post;
+    req.headers = [new HttpHeader("Content-Type", "application/json"), new HttpHeader("Authorization", `Bot ${config.main.botToken}`)];
+    req.body = JSON.stringify({
+      embeds: [
+        {
+          author: {
+            name: `${interaction.member.user.username}`,
+            icon_url: interaction.member.user.avatarUrl
+          },
+          description: `**Gamertag:** ${gamertag}\n**Reason:** ${reason}`,
+          color: 0xFFFF00,
+          footer: {
+            text: `ID: ${interaction.member.user.id}`
+          },
+          timestamp: new Date().toISOString()
+        }
+      ],
+      components: [
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              label: "Accept",
+              custom_id: "accept_applicant",
+              style: 1
+            },
+            {
+              type: 2,
+              label: "Reject",
+              custom_id: "reject_applicant",
+              style: 4
+            }
+          ]
+        }
+      ]
+    });
+
+    await http.request(req);
+  } else if(config.Synchronization.roleToAdd) {
+    // Add role
+    const req = new HttpRequest(`https://discord.com/api/v10/guilds/${guildId}/members/${interaction.member.user.id}/roles/${config.Synchronization.roleToAdd}`)
+    req.method = HttpRequestMethod.Put;
+    req.headers = [new HttpHeader("Authorization", `Bot ${config.main.botToken}`)];
+    await http.request(req)
+  }
 }

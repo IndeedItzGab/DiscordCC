@@ -1,26 +1,16 @@
-- Implemented Account Synchronization
-  - Manual or automatic accepting gamertag registration.
-  - Allow automatically add a specific role to a user once the application was accepted manually or automatically.
-  - Implemented new discord slash commands:
-    - **/register <gamertag> [reason]**
-    - **/gamertag <user>**
-  - Implemented new minecraft slash commands:
-    - **/verify**
-    - **/discord account <gamertag>**
-- Fixed alex png avatar not showing up, and steve avatar will be used as default player's avatar.
-- Updated **/player info** for the connected discord account information.
+- Improvement with updating discord slash command by making it flexible in each updates and also to avoid delay in registrating a new commands.
+- Added **messages.js** file to easily customize most messages from this project.
+- Added an application form for ui-based registration, improving user-experience.
+- Added new discord slash command for the application form:
+  - **/form submission**
+- Fixed a bug where a non-moderator user in discord can perform "reject" in registration forms.
+- Fixed a bug where **/register** discord command is not giving the expected result, making users confused in some particular cases.
 
 Next next update
-- Revameped in registering discord slash commands
-- Gamertag Registration
-  - Discord Form 
-  - Customizable messages
 - Implemented new discord slash commands:
+  - Store data player's in dynamic property for viewing even player is off
   - **/player enderchest <gamertag>**
   - **/player inventory <gamertag>**
   - **/player info** since online, offline ago
-
-next next update
-- Store data player's in dynamic property for viewing even player is off
-- death counts
-- Ores break and obtained
+  - death counts
+  - Ores break and obtained

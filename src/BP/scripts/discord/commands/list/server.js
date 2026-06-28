@@ -6,48 +6,47 @@ import { guilds, debug } from "../../Client";
 
 // will be refactored //
 
-export function server() {
-  SlashCommand.register({
-    name: "server",
-    description: "Manage the minecraft bedrock server.",
-    options: [
-      {
-        name: "info",
-        description: "View information about the bedrock server.",
-        type: 1,
-        options: []
-      },
-      {
-        name: "shutdown",
-        description: "Shutdown the minecraft bedrock server.",
-        type: 1,
-        options: []
-      }
-    ]
-  }, async function(interaction) {
-    const sub = interaction.options.sub.name
+SlashCommand.register({
+  name: "server",
+  description: "Manage the minecraft bedrock server.",
+  options: [
+    {
+      name: "info",
+      description: "View information about the bedrock server.",
+      type: 1,
+      options: []
+    },
+    {
+      name: "shutdown",
+      description: "Shutdown the minecraft bedrock server.",
+      type: 1,
+      options: []
+    }
+  ]
+}, async function(interaction) {
+  const sub = interaction.options.sub.name
 
-    switch(sub) {
-      case "info": {
-        const elapsedSeconds = (Date.now() - tickStart) / 1000;
-        const tick5s = getTPS(5)
-        const tick10s = getTPS(10)
-        const tick60s = getTPS(60)
-        const tick5m = getTPS(300)
-        const tick10m = getTPS(600)
-        const extension = guilds.get(interaction.guild.id)?.icon?.startsWith("a_") ? "gif" : "png";
-    
-        interaction.reply({
-          embeds: [
-            {
-              author: {
-                name: "Server Information",
-                icon_url: `https://cdn.discordapp.com/icons/${interaction.guild.id}/${guilds.get(interaction.guild.id)?.icon}.${extension}?size=1024`
-              },
-              thumbnail: {
-                url:  `https://cdn.discordapp.com/icons/${interaction.guild.id}/${guilds.get(interaction.guild.id)?.icon}.${extension}?size=1024`
-              },
-              description: `**Name:** ${config.serverName || "Not provided"}
+  switch(sub) {
+    case "info": {
+      const elapsedSeconds = (Date.now() - tickStart) / 1000;
+      const tick5s = getTPS(5)
+      const tick10s = getTPS(10)
+      const tick60s = getTPS(60)
+      const tick5m = getTPS(300)
+      const tick10m = getTPS(600)
+      const extension = guilds.get(interaction.guild.id)?.icon?.startsWith("a_") ? "gif" : "png";
+  
+      interaction.reply({
+        embeds: [
+          {
+            author: {
+              name: "Server Information",
+              icon_url: `https://cdn.discordapp.com/icons/${interaction.guild.id}/${guilds.get(interaction.guild.id)?.icon}.${extension}?size=1024`
+            },
+            thumbnail: {
+              url:  `https://cdn.discordapp.com/icons/${interaction.guild.id}/${guilds.get(interaction.guild.id)?.icon}.${extension}?size=1024`
+            },
+            description: `**Name:** ${config.serverName || "Not provided"}
 **Address:** ${config.serverAddress || "Not provided"}
 **Port:** ${config.serverPort || "Not provided"}
 **Online Player(s):** ${world.getPlayers().length}
@@ -57,43 +56,43 @@ export function server() {
 > **60 seconds:** ${tick60s}
 > **5 minutes:** ${tick5m}
 > **10 minutes:** ${tick10m}`,
-              color: 0x00FFff
-            }
-          ]
-        })
-        
-        break;
-      }
-      case "shutdown": {
-        // Filter
-        if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
-          embeds: [
-            {
-              description: `**You are not allowed to use this command.**`,
-              color: 0xFF0000
-            }
-          ],
-          flags: 64
-        })
-
-
-        dedicatedServer.stopServer()
-        interaction.reply({
-          embeds: [
-            {
-              author: {
-                name: "Shutdown server requested."
-              },
-              color: 0x00FF00 
-            }
-          ]
-        })
-        break;
-      }
+            color: 0x00FFff
+          }
+        ]
+      })
+      
+      break;
     }
-  })
-  debug(1, `"server" slash command loaded`)
-}
+    case "shutdown": {
+      // Filter
+      if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
+        embeds: [
+          {
+            description: `**You are not allowed to use this command.**`,
+            color: 0xFF0000
+          }
+        ],
+        flags: 64
+      })
+
+
+      dedicatedServer.stopServer()
+      interaction.reply({
+        embeds: [
+          {
+            author: {
+              name: "Shutdown server requested."
+            },
+            color: 0x00FF00 
+          }
+        ]
+      })
+      break;
+    }
+  }
+})
+debug(1, `"server" slash command loaded`)
+
 
 
 let ticks = 0;

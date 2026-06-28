@@ -4,74 +4,59 @@ import { SlashCommand } from "../CommandRegistration";
 import { kickPlayer } from "@minecraft/server-admin"
 import { debug } from "../../Client";
 
-export function kick() {
-  SlashCommand.register({
-    name: "kick",
-    description: "Kick a specific player in the minecraft server",
-    options: [
+SlashCommand.register({
+  name: "kick",
+  description: "Kick a specific player in the minecraft server",
+  options: [
+    {
+      name: "gamertag",
+      description: "The gamertag of the player to kick",
+      type: 3,
+      required: true
+    },
+    {
+      name: "reason",
+      description: "Provide a reason",
+      type: 3
+    }
+  ]
+}, async function(interaction) {
+  
+  // Filter
+  if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
+    embeds: [
       {
-        name: "gamertag",
-        description: "The gamertag of the player to kick",
-        type: 3,
-        required: true
-      },
-      {
-        name: "reason",
-        description: "Provide a reason",
-        type: 3
+        description: messages.notAuthorized,
+        color: 0xFF0000
       }
-    ]
-  }, async function(interaction) {
-    
-    // Filter
-    if(!interaction.member?.roles.some(r => config.main.moderatorRoles.includes(r))) return interaction.reply({
-      embeds: [
-        {
-          description: `**You are not allowed to use this command.**`,
-          color: 0xFF0000
-        }
-      ],
-      flags: 64
-    })
+    ],
+    flags: 64
+  })
 
-    const gamertag = interaction.options.getString("gamertag");
-    const reason = interaction.options.getString("reason") || "No reason given.";
+  const gamertag = interaction.options.getString("gamertag");
+  const reason = interaction.options.getString("reason") || "No reason given.";
 
-    const player = world.getPlayers().find(p => p.name === gamertag)
-    try {
-      if(player) {
-        kickPlayer(player, reason)
-        interaction.reply({
-          embeds: [
-            {
-              author: {
-                name: `${gamertag} was kicked | ${reason}`,
-                icon_url: config.playerAvatar
-              },
-              color: 0x00FF00
-            }
-          ]
-        })
-      } else {
-        interaction.reply({
-          embeds: [
-            {
-              author: {
-                name: `No targets matched selector`
-              },
-              color: 0xFF0000
-            }
-          ],
-          flags: 64
-        })
-      }
-    } catch (err) {
-      console.error(err)
+  const player = world.getPlayers().find(p => p.name === gamertag)
+  try {
+    if(player) {
+      kickPlayer(player, reason)
       interaction.reply({
         embeds: [
           {
             author: {
-              name: `Something went wrong. Please try again.`
+              name: `${gamertag} was kicked | ${reason}`,
+              icon_url: config.playerAvatar
+            },
+            color: 0x00FF00
+          }
+        ]
+      })
+    } else {
+      interaction.reply({
+        embeds: [
+          {
+            author: {
+              name: `No targets matched selector`
             },
             color: 0xFF0000
           }
@@ -79,6 +64,19 @@ export function kick() {
         flags: 64
       })
     }
-  })
-  debug(1, `"kick" slash command loaded`)
-}
+  } catch (err) {
+    console.error(err)
+    interaction.reply({
+      embeds: [
+        {
+          author: {
+            name: `Something went wrong. Please try again.`
+          },
+          color: 0xFF0000
+        }
+      ],
+      flags: 64
+    })
+  }
+})
+debug(1, `"kick" slash command loaded`)

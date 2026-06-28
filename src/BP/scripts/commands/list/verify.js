@@ -5,7 +5,7 @@ import { MessageFormData } from "@minecraft/server-ui"
 
 const commandInformation = {
   name: "verify",
-  description: "Verify the discord connection from a discord account.",
+  description: "Verify your discord connection.",
   aliases: [],
   usage: []
 }

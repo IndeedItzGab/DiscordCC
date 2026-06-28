@@ -41,7 +41,7 @@ export const config = {
     enable: false, // Enable or disable the synchronization feature. If enable player who has not linked their discord account to their gamertag will not be able to join the server.
     autoAccept: false, // Automatically accept a gamertag registration request without the need of a moderator to approve it.
     roleToAdd: "", // [OPTIONAL] The role ID that will be provided for discord users who got their gamertag connection accepted by moderators or automatically.
-    respondChannel: "", // [REQUIRED IF "AUTOACCEPT" IS ENABLED] The channel ID that the bot will respond to when a user registers their gamertag. (This is where the bot will send the registration request to moderators.)
+    respondChannel: "", // [REQUIRED IF "AUTOACCEPT" IS DISABLED] The channel ID that the bot will respond to when a user registers their gamertag. (This is where the bot will send the registration request to moderators.)
   },
 
   // Extra Configuration - You can tweak these setting from your own preference.

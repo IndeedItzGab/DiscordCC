@@ -28,11 +28,10 @@ export class Interaction {
         this.message = d.message;
         break;
       }
+      case 5: {
+        this.data = d.data;
+      }
     }
-    
-    
-  
-    
   }
 
   async reply(data) {
@@ -41,6 +40,18 @@ export class Interaction {
     req.headers = [new HttpHeader("Content-Type", "application/json")];
     req.body = JSON.stringify({
       type: 4,
+      data: data
+    });
+  
+    await http.request(req);
+  }
+
+  async showModal(data) {
+    const req = new HttpRequest(`https://discord.com/api/v10/interactions/${this.id}/${this.token}/callback`);
+    req.method = HttpRequestMethod.Post;
+    req.headers = [new HttpHeader("Content-Type", "application/json")];
+    req.body = JSON.stringify({
+      type: 9,
       data: data
     });
   
